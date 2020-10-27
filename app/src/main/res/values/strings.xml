@@ -5,4 +5,7 @@
 
     <string name="facebook_app_id">2516601118580534</string>
     <string name="fb_login_protocol_scheme">fb2516601118580534</string>
+    <string name="todo">TODO</string>
+    <string name="find_your_study_group">Find Your Study Group</string>
+
 </resources>

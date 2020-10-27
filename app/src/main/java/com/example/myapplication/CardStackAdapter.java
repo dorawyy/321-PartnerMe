@@ -37,7 +37,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         return items.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
         TextView name, info;
         ViewHolder(@NonNull View itemView) {
