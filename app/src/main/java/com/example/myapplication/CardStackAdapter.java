@@ -48,6 +48,8 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         }
 
         void setData(User data) {
+            name.setText(data.getName());
+            info.setText(data.getAvailability());
         }
     }
 
