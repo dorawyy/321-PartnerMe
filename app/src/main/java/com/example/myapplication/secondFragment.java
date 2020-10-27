@@ -66,17 +66,22 @@ public class secondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_second, container, false);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
-        String name = acct.getDisplayName();
-        Uri uri = acct.getPhotoUrl();
+        if (GoogleSignIn.getLastSignedInAccount(getContext()) != null) {
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
+            String name = acct.getDisplayName();
+            Uri uri = acct.getPhotoUrl();
 
-        TextView tv = rootView.findViewById(R.id.profile_name);
-        ImageView img = rootView.findViewById(R.id.profile_picture);
-        if (name != null)
-            tv.setText(name);
-        if (uri != null)
-            Picasso.get().load(uri).into(img);
-        // Inflate the layout for this fragment
+            TextView tv = rootView.findViewById(R.id.profile_name);
+            ImageView img = rootView.findViewById(R.id.profile_picture);
+            if (name != null)
+                tv.setText(name);
+            if (uri != null)
+                Picasso.get().load(uri).into(img);
+            // Inflate the layout for this fragment
+        } else {
+
+        }
+
         return rootView;
     }
 }
