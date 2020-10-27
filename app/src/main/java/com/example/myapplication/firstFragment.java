@@ -16,6 +16,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +73,7 @@ public class firstFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_first, container, false);
         // Inflate the layout for this fragment
         final TextView textView = (TextView) view.findViewById(R.id.firstFragmentTextView);
+        final Gson g = new Gson();
 // ...
 // Instantiate the RequestQueue.
         final RequestQueue queue = Volley.newRequestQueue(this.getContext());
@@ -81,8 +85,19 @@ public class firstFragment extends Fragment {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        textView.setText(response);
+
+                        User[] userList = g.fromJson(response, User[].class);
+                        String str = "";
+                        for (User user : userList) {
+                            str = str.concat("\n\n\nName: " + user.getName() +
+                                    "\nClass:  " + user.get_Class() +
+                                    "\nLanguage:  " + user.getLanguage() +
+                                    "\nAvailability:  " + user.getAvailability() +
+                                    "\nHobbies:  " + user.getHobbies()
+                            );
+                        }
+
+                        textView.setText(str);
                     }
                 }, new Response.ErrorListener() {
             @SuppressLint("SetTextI18n")
