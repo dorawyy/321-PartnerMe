@@ -55,9 +55,8 @@ public class SwipeActivity extends AppCompatActivity {
                     Toast.makeText(SwipeActivity.this, "Direction Bottom", Toast.LENGTH_SHORT).show();
                 }
 
-                // Paginating
                 if (manager.getTopPosition() == adapter.getItemCount() - 5){
-                    paginate();
+                    page();
                 }
 
             }
@@ -101,13 +100,13 @@ public class SwipeActivity extends AppCompatActivity {
 
     }
 
-    private void paginate() {
+    private void page() {
         List<User> old = adapter.getItems();
         List<User> next = new ArrayList<>(addList());
         CardStackCallback callback = new CardStackCallback(old, next);
-        DiffUtil.DiffResult hasil = DiffUtil.calculateDiff(callback);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
         adapter.setItems(next);
-        hasil.dispatchUpdatesTo(adapter);
+        result.dispatchUpdatesTo(adapter);
     }
 
     private List<User> addList() {

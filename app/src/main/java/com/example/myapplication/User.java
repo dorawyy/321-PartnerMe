@@ -8,4 +8,12 @@ public class User {
     private String availability;
     private String[] hobbies;
     private String userId;
+
+    public String getName () {
+        return this.name;
+    }
+
+    public String getAvailability () {
+        return this.availability;
+    }
 }
