@@ -7,6 +7,7 @@ public class User {
     private String Language;
     private String Availability;
     private String Hobbies;
+    private String Email;
 
     public String getName () {
         return this.Name;
@@ -21,6 +22,8 @@ public class User {
     public String getHobbies() {return this.Hobbies;}
 
     public String getLanguage() {return this.Language;}
+
+    public String getEmail() {return this.Email;}
 
 
 }

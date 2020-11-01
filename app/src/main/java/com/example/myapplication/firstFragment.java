@@ -1,22 +1,31 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -68,51 +77,61 @@ public class firstFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_first, container, false);
-        // Inflate the layout for this fragment
-        final TextView textView = (TextView) view.findViewById(R.id.firstFragmentTextView);
-        final Gson g = new Gson();
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+        final JSONObject object = new JSONObject();
+        if (GoogleSignIn.getLastSignedInAccount(getContext()) != null) {
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
+            try {
+                object.put("email", acct.getEmail());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+            View view = inflater.inflate(R.layout.fragment_first, container, false);
+            // Inflate the layout for this fragment
+            final TextView textView = (TextView) view.findViewById(R.id.firstFragmentTextView);
+            final Gson g = new Gson();
+
 // ...
 // Instantiate the RequestQueue.
-        final RequestQueue queue = Volley.newRequestQueue(this.getContext());
-        String url ="http://52.91.172.94:3000/matching/getmatch";
-
-// Request a string response from the provided URL.
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onResponse(String response) {
-
-                        User[] userList = g.fromJson(response, User[].class);
-                        String str = "";
-                        for (User user : userList) {
-                            str = str.concat("\n\n\nName: " + user.getName() +
-                                    "\nClass:  " + user.get_Class() +
-                                    "\nLanguage:  " + user.getLanguage() +
-                                    "\nAvailability:  " + user.getAvailability() +
-                                    "\nHobbies:  " + user.getHobbies()
-                            );
+            final RequestQueue queue = Volley.newRequestQueue(this.getContext());
+            String url = "http://52.91.172.94:3000/matching/getmatch";
+            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            User[] userList = new User[0];
+                            try {
+                                userList = g.fromJson(response.get("userList").toString(), User[].class);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String str = "";
+                            for (User user : userList) {
+                                str = str.concat("\n\n\nName: " + user.getName() +
+                                        "\nClass:  " + user.get_Class() +
+                                        "\nLanguage:  " + user.getLanguage() +
+                                        "\nAvailability:  " + user.getAvailability() +
+                                        "\nHobbies:  " + user.getHobbies()
+                                );
+                            }
+                            textView.setText(str);
                         }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                }
+            });
 
-                        textView.setText(str);
-                    }
-                }, new Response.ErrorListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                textView.setText("That didn't work!");
-            }
-        });
 // Add the request to the RequestQueue.
-        view.findViewById(R.id.callDBButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                queue.add(stringRequest);
-            }
-        });
-        return view;
+            view.findViewById(R.id.callDBButton).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    queue.add(jsonObjectRequest);
+                }
+            });
+            return view;
     }
 }
