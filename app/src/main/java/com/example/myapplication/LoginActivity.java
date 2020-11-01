@@ -17,6 +17,13 @@ import android.widget.Toast;
 
 //import com.facebook.login.LoginManager;
 //import com.facebook.login.LoginResult;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,7 +37,12 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
+
+        Log.d("wow", "ok");
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         findViewById(R.id.google_icon).setOnClickListener(new View.OnClickListener() {
@@ -185,8 +199,32 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "Family Name: " + account.getFamilyName());
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
 
+            final String email = account.getEmail();
+
             //Send token to your back-end
             //Move to another activity
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            String url = "http://52.91.172.94:3000/auth/check";
+            JSONObject object = new JSONObject();
+            try {
+                object.put("email", account.getEmail());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d(TAG, "new user?!?!");
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, "ok error");
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }

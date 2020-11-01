@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -26,6 +28,7 @@ public class secondFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    //private FirebaseAuth mFirebaseAuth;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -78,8 +81,6 @@ public class secondFragment extends Fragment {
             if (uri != null)
                 Picasso.get().load(uri).into(img);
             // Inflate the layout for this fragment
-        } else {
-
         }
 
         return rootView;
