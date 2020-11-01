@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI(GoogleSignInAccount account) {
+    private void updateUI(final GoogleSignInAccount account) {
         if (account == null) {
             Log.d(TAG, "There is no user signed in!");
         } else {
@@ -203,7 +203,7 @@ public class LoginActivity extends AppCompatActivity {
 
             //Send token to your back-end
             //Move to another activity
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            final RequestQueue requestQueue = Volley.newRequestQueue(this);
             String url = "http://52.91.172.94:3000/auth/check";
             JSONObject object = new JSONObject();
             try {
@@ -211,22 +211,33 @@ public class LoginActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            try {
+                                if((Boolean) response.get("success")){
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                                    intent.putExtra("email", account.getEmail());
+                                    startActivity(intent);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Log.d(TAG, "new user?!?!");
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, error.toString());
                     Log.d(TAG, "ok error");
                 }
             });
             requestQueue.add(jsonObjectRequest);
-
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
         }
     }
 }

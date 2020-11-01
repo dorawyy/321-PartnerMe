@@ -7,5 +7,9 @@
     <string name="fb_login_protocol_scheme">fb2516601118580534</string>
     <string name="todo">TODO</string>
     <string name="find_your_study_group">Find Your Study Group</string>
-
+    <string-array name="availability_array">
+        <item>Morning</item>
+        <item>Afternoon</item>
+        <item>Evening</item>
+    </string-array>
 </resources>
