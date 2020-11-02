@@ -152,6 +152,9 @@ public class SwipeActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         items.addAll(Arrays.asList(userList));
+                        CardStackView cardStackView = findViewById(R.id.card_stack_view);
+                        adapter = new CardStackAdapter(Arrays.asList(userList));
+                        cardStackView.setAdapter(adapter);
                     }
                 }, new Response.ErrorListener() {
             @Override
