@@ -101,19 +101,20 @@ public class firstFragment extends Fragment {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            User[] userList = new User[0];
+                            MatchResult[] matchList = new MatchResult[0];
                             try {
-                                userList = g.fromJson(response.get("userList").toString(), User[].class);
+                                matchList = g.fromJson(response.get("match result").toString(), MatchResult[].class);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             String str = "";
-                            for (User user : userList) {
-                                str = str.concat("\n\n\nName: " + user.getName() +
-                                        "\nClass:  " + user.get_Class() +
-                                        "\nLanguage:  " + user.getLanguage() +
-                                        "\nAvailability:  " + user.getAvailability() +
-                                        "\nHobbies:  " + user.getHobbies()
+                            for (MatchResult user : matchList) {
+                                str = str.concat("\n\n\nName: " + user.getUser().getName() +
+                                        "\nClass:  " + user.getUser().get_Class() +
+                                        "\nLanguage:  " + user.getUser().getLanguage() +
+                                        "\nAvailability:  " + user.getUser().getAvailability() +
+                                        "\nHobbies:  " + user.getUser().getHobbies() +
+                                        "\nSimilarity:  " + user.getSimilarity()
                                 );
                             }
                             textView.setText(str);

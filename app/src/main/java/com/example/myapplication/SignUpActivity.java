@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
                     object.put("Language", languageField.getText().toString());
                     object.put("Class", classField.getText().toString());
                     object.put("Availability", availabilitySpinner.getSelectedItem().toString());
-                    object.put("Hobbies", "Hobbies: {[" + hobbyField.getText().toString() + "]");
+                    object.put("Hobbies", hobbyField.getText().toString());
                     object.put("Email", getIntent().getStringExtra("email"));
                 } catch (JSONException e) {
                     e.printStackTrace();
