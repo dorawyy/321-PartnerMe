@@ -11,6 +11,15 @@ import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.gson.Gson;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -18,7 +27,11 @@ import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SwipeActivity extends AppCompatActivity {
@@ -110,7 +123,45 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     private List<User> addList() {
-        List<User> items = new ArrayList<>();
+        final List<User> items = new ArrayList<>();
+        items.add(new User("Daniel", "CPEN321", "English", "Coding"));
+        items.add(new User("Grady", "CPEN321", "English", "Coding"));
+        items.add(new User("Vincent", "CPEN321", "English", "Coding"));
+        items.add(new User("Joshua", "CPEN321", "English", "Coding"));
+
+        final JSONObject object = new JSONObject();
+        if (GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null) {
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+            try {
+                object.put("email", acct.getEmail());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        final Gson g = new Gson();
+        final RequestQueue queue = Volley.newRequestQueue(this.getApplicationContext());
+        String url = "http://52.91.172.94:3000/matching/getmatch";
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        User[] userList = new User[0];
+                        try {
+                            userList = g.fromJson(response.get("userList").toString(), User[].class);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        items.addAll(Arrays.asList(userList));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        });
+
+        queue.add(jsonObjectRequest);
+
         return items;
     }
 }
