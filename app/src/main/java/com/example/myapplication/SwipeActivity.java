@@ -106,7 +106,8 @@ public class SwipeActivity extends AppCompatActivity {
         manager.setCanScrollHorizontal(true);
         manager.setSwipeableMethod(SwipeableMethod.Manual);
         manager.setOverlayInterpolator(new LinearInterpolator());
-        adapter = new CardStackAdapter(addList());
+        adapter = new CardStackAdapter(new ArrayList<User>());
+        addList();
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
@@ -114,21 +115,10 @@ public class SwipeActivity extends AppCompatActivity {
     }
 
     private void page() {
-        List<User> old = adapter.getItems();
-        List<User> next = new ArrayList<>(addList());
-        CardStackCallback callback = new CardStackCallback(old, next);
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
-        adapter.setItems(next);
-        result.dispatchUpdatesTo(adapter);
+        addList();
     }
 
-    private List<User> addList() {
-        final List<User> items = new ArrayList<>();
-        items.add(new User("Daniel", "CPEN321", "English", "Coding"));
-        items.add(new User("Grady", "CPEN321", "English", "Coding"));
-        items.add(new User("Vincent", "CPEN321", "English", "Coding"));
-        items.add(new User("Joshua", "CPEN321", "English", "Coding"));
-
+    private void addList() {
         final JSONObject object = new JSONObject();
         if (GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null) {
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
@@ -151,10 +141,12 @@ public class SwipeActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        items.addAll(Arrays.asList(userList));
-                        CardStackView cardStackView = findViewById(R.id.card_stack_view);
-                        adapter = new CardStackAdapter(Arrays.asList(userList));
-                        cardStackView.setAdapter(adapter);
+                        List<User> old = adapter.getItems();
+                        List<User> next = new ArrayList<>(Arrays.asList(userList));
+                        CardStackCallback callback = new CardStackCallback(old, next);
+                        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
+                        adapter.setItems(next);
+                        result.dispatchUpdatesTo(adapter);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -164,7 +156,5 @@ public class SwipeActivity extends AppCompatActivity {
         });
 
         queue.add(jsonObjectRequest);
-
-        return items;
     }
 }
