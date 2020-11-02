@@ -9,6 +9,16 @@ public class User {
     private String Hobbies;
     private String Email;
 
+    public User() {
+    }
+
+    public User(String name, String classes, String language, String hobbies) {
+        this.Name = name;
+        this.Class = classes;
+        this.Language = language;
+        this.Hobbies = hobbies;
+    }
+
     public String getName () {
         return this.Name;
     }
