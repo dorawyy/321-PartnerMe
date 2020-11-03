@@ -51,8 +51,8 @@ public class SignUpActivity extends AppCompatActivity {
                 // send post request with fields
                 try {
                     object.put("Name", nameField.getText().toString());
-                    object.put("Language", languageField.getText().toString());
-                    object.put("Class", classField.getText().toString());
+                    object.put("Language", languageField.getText().toString().replaceAll(" ", "").toUpperCase());
+                    object.put("Class", classField.getText().toString().replaceAll(" ", "").toUpperCase());
                     object.put("Availability", availabilitySpinner.getSelectedItem().toString());
                     object.put("Hobbies", hobbyField.getText().toString());
                     object.put("Email", getIntent().getStringExtra("email"));
