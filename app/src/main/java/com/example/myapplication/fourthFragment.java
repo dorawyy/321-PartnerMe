@@ -109,7 +109,7 @@ public class fourthFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             User currUser = new User();
-                            currUser = g.fromJson(response.get("match result").toString(), User.class);
+                            currUser = g.fromJson(response.get("user").toString(), User.class);
                             nameField.setText(currUser.getName());
                             languageField.setText(currUser.getLanguage());
                             classField.setText(currUser.get_Class());
