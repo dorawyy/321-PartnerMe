@@ -1,15 +1,15 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DiffUtil;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DiffUtil;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,7 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SwipeActivity extends AppCompatActivity {
@@ -54,7 +53,7 @@ public class SwipeActivity extends AppCompatActivity {
 
             @Override
             public void onCardSwiped(Direction direction) {
-                Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
+                Log.d(TAG, "onCardSwiped: n=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right){
                     Toast.makeText(SwipeActivity.this, "Direction Right", Toast.LENGTH_SHORT).show();
                 }
@@ -82,19 +81,19 @@ public class SwipeActivity extends AppCompatActivity {
 
             @Override
             public void onCardCanceled() {
-                Log.d(TAG, "onCardRewound: " + manager.getTopPosition());
+                Log.d(TAG, "onCardCanceled: " + manager.getTopPosition());
             }
 
             @Override
             public void onCardAppeared(View view, int position) {
                 TextView tv = view.findViewById(R.id.item_name);
-                Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv.getText());
+                Log.d(TAG, "onCardAppeared: " + position + ", name: " + tv.getText());
             }
 
             @Override
             public void onCardDisappeared(View view, int position) {
                 TextView tv = view.findViewById(R.id.item_name);
-                Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv.getText());
+                Log.d(TAG, "onCardDisappeared: " + position + ", name: " + tv.getText());
             }
         });
         manager.setStackFrom(StackFrom.None);
@@ -121,8 +120,8 @@ public class SwipeActivity extends AppCompatActivity {
 
     private void addList() {
         final JSONObject object = new JSONObject();
-        if (GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null) {
-            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        if (acct != null) {
             try {
                 object.put("email", acct.getEmail());
             } catch (JSONException e) {
