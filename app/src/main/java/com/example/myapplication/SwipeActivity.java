@@ -68,7 +68,8 @@ public class SwipeActivity extends AppCompatActivity {
                     Toast.makeText(SwipeActivity.this, "Direction Bottom", Toast.LENGTH_SHORT).show();
                 }
 
-                if (manager.getTopPosition() == adapter.getItemCount() - 5){
+                // change the value of adapter.getItemcount() - value to how many cards we want before we restart matches
+                if (manager.getTopPosition() == adapter.getItemCount()){
                     page();
                 }
 
