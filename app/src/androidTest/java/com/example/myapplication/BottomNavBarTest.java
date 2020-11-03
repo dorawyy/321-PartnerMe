@@ -31,6 +31,19 @@ public class BottomNavBarTest {
         onView(withId(R.id.secondFragment))
                 .perform(click())
                 .check(matches(isDisplayed()));
+
+//        onView(withId(R.id.thirdFragment))
+//                .perform(click())
+//                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.fourthFragment))
+                .perform(click())
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.firstFragment))
+                .perform(click());
+        onView(withId(R.id.callDBButton))
+                .check(matches(isDisplayed()));
     }
 
 }

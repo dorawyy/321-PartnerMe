@@ -47,64 +47,67 @@ public class SignUpActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if (nameField.getText().toString().trim().isEmpty() ||
+                        languageField.getText().toString().trim().isEmpty() ||
+                        classField.getText().toString().trim().isEmpty() ||
+                        hobbyField.getText().toString().trim().isEmpty()) {
 
-                // send post request with fields
-                try {
-                    object.put("name", nameField.getText().toString());
-                    object.put("language", languageField.getText().toString().replaceAll(" ", "").toUpperCase());
-                    object.put("class", classField.getText().toString().replaceAll(" ", "").toUpperCase());
-                    object.put("availability", availabilitySpinner.getSelectedItem().toString());
-                    object.put("hobbies", hobbyField.getText().toString());
-                    object.put("email", getIntent().getStringExtra("email"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    boolean res = true;
-                                    if (nameField.getText().toString().isEmpty()) {
-                                        nameField.setError("Name is required");
-                                        nameField.requestFocus();
-                                        res = false;
-                                    }
-                                    if (languageField.getText().toString().isEmpty()) {
-                                        languageField.setError("Language is required");
-                                        languageField.requestFocus();
-                                        res = false;
-                                    }
-                                    if (classField.getText().toString().isEmpty()) {
-                                        classField.setError("Class is required");
-                                        classField.requestFocus();
-                                        res = false;
-                                    }
-                                    if (hobbyField.getText().toString().isEmpty()) {
-                                        hobbyField.setError("Hobby is required");
-                                        hobbyField.requestFocus();
-                                        res = false;
-                                    }
-
-                                    if(res && (Boolean) response.get("success")){
-                                        // successful signup with get us to the main activity
-                                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                    }
-                                    else{
-                                        Toast.makeText(SignUpActivity.this, "Sign up not complete, please make sure fields are not empty or your internet connection", Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println(error);
+                    if (hobbyField.getText().toString().trim().isEmpty()) {
+                        hobbyField.setError("Hobby is required");
+                        hobbyField.requestFocus();
                     }
-                });
-                requestQueue.add(jsonObjectRequest);
+                    if (languageField.getText().toString().trim().isEmpty()) {
+                        languageField.setError("Language is required");
+                        languageField.requestFocus();
+                    }
+                    if (classField.getText().toString().trim().isEmpty()) {
+                        classField.setError("Class is required");
+                        classField.requestFocus();
+                    }
+                    if (nameField.getText().toString().trim().isEmpty()) {
+                        nameField.setError("Name is required");
+                        nameField.requestFocus();
+                    }
+
+                    Toast.makeText(SignUpActivity.this, "Sign up not complete, please make sure fields are not empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    // send post request with fields
+                    try {
+                        object.put("name", nameField.getText().toString());
+                        object.put("language", languageField.getText().toString().replaceAll(" ", "").toUpperCase());
+                        object.put("class", classField.getText().toString().replaceAll(" ", "").toUpperCase());
+                        object.put("availability", availabilitySpinner.getSelectedItem().toString());
+                        object.put("hobbies", hobbyField.getText().toString());
+                        object.put("email", getIntent().getStringExtra("email"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        if((Boolean) response.get("success")){
+                                            // successful signup with get us to the main activity
+                                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        else{
+                                            Toast.makeText(SignUpActivity.this, "Sign up not complete, please make sure fields are not empty or your internet connection", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println(error);
+                        }
+                    });
+                    requestQueue.add(jsonObjectRequest);
+                }
+
             }
         });
     }
