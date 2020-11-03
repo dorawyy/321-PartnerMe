@@ -135,17 +135,20 @@ public class SwipeActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        User[] userList = new User[0];
+                        List<User> userList = new ArrayList<>();
+                        MatchResult[] matchList = new MatchResult[0];
                         try {
-                            userList = g.fromJson(response.get("userList").toString(), User[].class);
+                            matchList = g.fromJson(response.get("match result").toString(), MatchResult[].class);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        for (MatchResult user : matchList) {
+                            userList.add(user.getUser());
+                        }
                         List<User> old = adapter.getItems();
-                        List<User> next = new ArrayList<>(Arrays.asList(userList));
-                        CardStackCallback callback = new CardStackCallback(old, next);
+                        CardStackCallback callback = new CardStackCallback(old, (userList));
                         DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
-                        adapter.setItems(next);
+                        adapter.setItems((userList));
                         result.dispatchUpdatesTo(adapter);
                     }
                 }, new Response.ErrorListener() {
