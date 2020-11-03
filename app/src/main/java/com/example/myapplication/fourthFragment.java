@@ -92,7 +92,7 @@ public class fourthFragment extends Fragment {
         final RequestQueue queue = Volley.newRequestQueue(getContext());
 
         final JSONObject objectGet = new JSONObject();
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
+        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
         if (acct != null) {
             try {
                 objectGet.put("email", acct.getEmail());
@@ -151,11 +151,11 @@ public class fourthFragment extends Fragment {
                     objectPost.put("class", classField.getText().toString().replaceAll(" ", "").toUpperCase());
                     objectPost.put("availability", availabilitySpinner.getSelectedItem().toString());
                     objectPost.put("hobbies", hobbyField.getText().toString());
-                    objectPost.put("email", getActivity().getIntent().getStringExtra("email"));
+                    objectPost.put("email", acct.getEmail());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, urlPost, objectPost,
+                final JsonObjectRequest updateObject = new JsonObjectRequest(Request.Method.POST, urlPost, objectPost,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -176,7 +176,7 @@ public class fourthFragment extends Fragment {
                         System.out.println(error);
                     }
                 });
-                queue.add(jsonObjectRequest);
+                queue.add(updateObject);
             }
         });
 
