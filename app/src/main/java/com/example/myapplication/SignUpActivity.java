@@ -47,11 +47,12 @@ public class SignUpActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 // send post request with fields
                 try {
                     object.put("Name", nameField.getText().toString());
-                    object.put("Language", languageField.getText().toString());
-                    object.put("Class", classField.getText().toString());
+                    object.put("Language", languageField.getText().toString().replaceAll(" ", "").toUpperCase());
+                    object.put("Class", classField.getText().toString().replaceAll(" ", "").toUpperCase());
                     object.put("Availability", availabilitySpinner.getSelectedItem().toString());
                     object.put("Hobbies", hobbyField.getText().toString());
                     object.put("Email", getIntent().getStringExtra("email"));
@@ -63,7 +64,29 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    if((Boolean) response.get("success")){
+                                    boolean res = true;
+                                    if (nameField.getText().toString().isEmpty()) {
+                                        nameField.setError("Name is required");
+                                        nameField.requestFocus();
+                                        res = false;
+                                    }
+                                    if (languageField.getText().toString().isEmpty()) {
+                                        languageField.setError("Language is required");
+                                        languageField.requestFocus();
+                                        res = false;
+                                    }
+                                    if (classField.getText().toString().isEmpty()) {
+                                        classField.setError("Class is required");
+                                        classField.requestFocus();
+                                        res = false;
+                                    }
+                                    if (hobbyField.getText().toString().isEmpty()) {
+                                        hobbyField.setError("Hobby is required");
+                                        hobbyField.requestFocus();
+                                        res = false;
+                                    }
+
+                                    if(res && (Boolean) response.get("success")){
                                         // successful signup with get us to the main activity
                                         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                         startActivity(intent);
