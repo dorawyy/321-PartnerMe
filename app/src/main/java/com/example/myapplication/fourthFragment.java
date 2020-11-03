@@ -146,12 +146,12 @@ public class fourthFragment extends Fragment {
             public void onClick(View v) {
                 // send post request with fields
                 try {
-                    objectPost.put("Name", nameField.getText().toString());
-                    objectPost.put("Language", languageField.getText().toString().replaceAll(" ", "").toUpperCase());
-                    objectPost.put("Class", classField.getText().toString().replaceAll(" ", "").toUpperCase());
-                    objectPost.put("Availability", availabilitySpinner.getSelectedItem().toString());
-                    objectPost.put("Hobbies", hobbyField.getText().toString());
-                    objectPost.put("Email", getActivity().getIntent().getStringExtra("email"));
+                    objectPost.put("name", nameField.getText().toString());
+                    objectPost.put("language", languageField.getText().toString().replaceAll(" ", "").toUpperCase());
+                    objectPost.put("class", classField.getText().toString().replaceAll(" ", "").toUpperCase());
+                    objectPost.put("availability", availabilitySpinner.getSelectedItem().toString());
+                    objectPost.put("hobbies", hobbyField.getText().toString());
+                    objectPost.put("email", getActivity().getIntent().getStringExtra("email"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
