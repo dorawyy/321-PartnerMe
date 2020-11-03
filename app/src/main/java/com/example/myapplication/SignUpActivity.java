@@ -66,22 +66,22 @@ public class SignUpActivity extends AppCompatActivity {
                                 try {
                                     boolean res = true;
                                     if (nameField.getText().toString().isEmpty()) {
-                                        nameField.setError("Name should not be blank");
+                                        nameField.setError("Name is required");
                                         nameField.requestFocus();
                                         res = false;
                                     }
                                     if (languageField.getText().toString().isEmpty()) {
-                                        languageField.setError("Language should not be blank");
+                                        languageField.setError("Language is required");
                                         languageField.requestFocus();
                                         res = false;
                                     }
                                     if (classField.getText().toString().isEmpty()) {
-                                        classField.setError("Name should not be blank");
+                                        classField.setError("Class is required");
                                         classField.requestFocus();
                                         res = false;
                                     }
                                     if (hobbyField.getText().toString().isEmpty()) {
-                                        hobbyField.setError("Name should not be blank");
+                                        hobbyField.setError("Hobby is required");
                                         hobbyField.requestFocus();
                                         res = false;
                                     }
