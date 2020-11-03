@@ -47,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 // send post request with fields
                 try {
                     object.put("Name", nameField.getText().toString());
@@ -63,7 +64,29 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    if((Boolean) response.get("success")){
+                                    boolean res = true;
+                                    if (nameField.getText().toString().isEmpty()) {
+                                        nameField.setError("Name should not be blank");
+                                        nameField.requestFocus();
+                                        res = false;
+                                    }
+                                    if (languageField.getText().toString().isEmpty()) {
+                                        languageField.setError("Language should not be blank");
+                                        languageField.requestFocus();
+                                        res = false;
+                                    }
+                                    if (classField.getText().toString().isEmpty()) {
+                                        classField.setError("Name should not be blank");
+                                        classField.requestFocus();
+                                        res = false;
+                                    }
+                                    if (hobbyField.getText().toString().isEmpty()) {
+                                        hobbyField.setError("Name should not be blank");
+                                        hobbyField.requestFocus();
+                                        res = false;
+                                    }
+
+                                    if(res && (Boolean) response.get("success")){
                                         // successful signup with get us to the main activity
                                         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                         startActivity(intent);
