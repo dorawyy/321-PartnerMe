@@ -147,8 +147,8 @@ public class fourthFragment extends Fragment {
                 // send post request with fields
                 try {
                     objectPost.put("Name", nameField.getText().toString());
-                    objectPost.put("Language", languageField.getText().toString());
-                    objectPost.put("Class", classField.getText().toString());
+                    objectPost.put("Language", languageField.getText().toString().replaceAll(" ", "").toUpperCase());
+                    objectPost.put("Class", classField.getText().toString().replaceAll(" ", "").toUpperCase());
                     objectPost.put("Availability", availabilitySpinner.getSelectedItem().toString());
                     objectPost.put("Hobbies", hobbyField.getText().toString());
                     objectPost.put("Email", getActivity().getIntent().getStringExtra("email"));
