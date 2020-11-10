@@ -24,6 +24,16 @@ import org.json.JSONObject;
 
 public class MessageFragment extends Fragment {
 
+    public static MessageFragment newInstance() {
+        MessageFragment fragment = new MessageFragment();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

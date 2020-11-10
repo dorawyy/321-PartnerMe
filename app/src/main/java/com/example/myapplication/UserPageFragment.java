@@ -16,6 +16,11 @@ import com.squareup.picasso.Picasso;
 
 public class UserPageFragment extends Fragment {
 
+    public static UserPageFragment newInstance() {
+        UserPageFragment fragment = new UserPageFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

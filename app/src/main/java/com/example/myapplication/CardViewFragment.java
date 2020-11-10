@@ -12,6 +12,11 @@ import android.view.ViewGroup;
 
 public class CardViewFragment extends Fragment {
 
+    public static CardViewFragment newInstance() {
+        CardViewFragment fragment = new CardViewFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

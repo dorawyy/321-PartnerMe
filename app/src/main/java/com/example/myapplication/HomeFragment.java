@@ -22,6 +22,11 @@ import org.json.JSONObject;
 
 public class HomeFragment extends Fragment {
 
+    public static HomeFragment newInstance() {
+        HomeFragment fragment = new HomeFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
