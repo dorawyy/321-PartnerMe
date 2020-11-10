@@ -37,7 +37,10 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView name, classes, hobbies, languages;
+        private final TextView name;
+        private final TextView classes;
+        private final TextView hobbies;
+        private final TextView languages;
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.item_name);
@@ -48,7 +51,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
         void setData(User data) {
             name.setText(data.getName());
-            classes.setText(data.get_Class());
+            classes.setText(data.getUserClass());
             hobbies.setText(data.getHobbies());
             languages.setText(data.getLanguage());
         }

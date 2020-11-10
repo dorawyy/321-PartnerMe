@@ -22,10 +22,10 @@ import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link firstFragment#newInstance} factory method to
+ * Use the {@link FirstFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class firstFragment extends Fragment {
+public class FirstFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,8 +47,8 @@ public class firstFragment extends Fragment {
      * @return A new instance of fragment firstFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static firstFragment newInstance(String param1, String param2) {
-        firstFragment fragment = new firstFragment();
+    public static FirstFragment newInstance(String param1, String param2) {
+        FirstFragment fragment = new FirstFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -102,7 +102,7 @@ public class firstFragment extends Fragment {
                             String str = "";
                             for (MatchResult user : matchList) {
                                 str = str.concat("\n\n\nName: " + user.getUser().getName() +
-                                        "\nClass:  " + user.getUser().get_Class() +
+                                        "\nClass:  " + user.getUser().getUserClass() +
                                         "\nLanguage:  " + user.getUser().getLanguage() +
                                         "\nAvailability:  " + user.getUser().getAvailability() +
                                         "\nHobbies:  " + user.getUser().getHobbies() +

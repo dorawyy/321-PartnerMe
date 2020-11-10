@@ -25,6 +25,7 @@ public class CalendarActivity extends Activity {
             public void onClick(View v) {
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String selectedDate = sdf.format(new Date(calendar.getDate()));
+                System.out.println(selectedDate);
             }
         });
     }

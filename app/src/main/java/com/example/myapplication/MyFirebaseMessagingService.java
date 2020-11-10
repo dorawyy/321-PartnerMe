@@ -12,12 +12,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(s);
         Log.d(TAG, s);
 
-        sendRegistrationToServer(s);
-    }
+        // sendRegistrationToServer(s);
 
+    }
+    /*
     private void sendRegistrationToServer(String s) {
 
     }
+     */
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

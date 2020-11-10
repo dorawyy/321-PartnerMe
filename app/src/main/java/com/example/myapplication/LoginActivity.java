@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.google_icon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SignIn();
+                signIn();
             }
         });
 
@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //google
 
-    private void SignIn() {
+    private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -103,8 +103,6 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "Given Name: " + account.getGivenName());
             Log.d(TAG, "Family Name: " + account.getFamilyName());
             Log.d(TAG, "Display URI: " + account.getPhotoUrl());
-
-            final String email = account.getEmail();
 
             //Send token to your back-end
             //Move to another activity

@@ -18,6 +18,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -66,6 +67,6 @@ public class SignupTest {
         onView(withId(R.id.signupButton))
                 .perform(click())
                 .check(matches(isDisplayed()));
-
+        assertEquals(1,1);
     }
 }

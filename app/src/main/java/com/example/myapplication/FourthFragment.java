@@ -23,10 +23,10 @@ import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fourthFragment#newInstance} factory method to
+ * Use the {@link FourthFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fourthFragment extends Fragment {
+public class FourthFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,8 +48,8 @@ public class fourthFragment extends Fragment {
      * @return A new instance of fragment fourthFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static fourthFragment newInstance(String param1, String param2) {
-        fourthFragment fragment = new fourthFragment();
+    public static FourthFragment newInstance(String param1, String param2) {
+        FourthFragment fragment = new FourthFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -92,7 +92,7 @@ public class fourthFragment extends Fragment {
                             currUser = g.fromJson(response.get("user").toString(), User.class);
                             nameField.setText(currUser.getName());
                             languageField.setText(currUser.getLanguage());
-                            classField.setText(currUser.get_Class());
+                            classField.setText(currUser.getUserClass());
                             hobbyField.setText(currUser.getHobbies());
                             switch (currUser.getAvailability()) {
                                 case "Morning":
@@ -104,6 +104,8 @@ public class fourthFragment extends Fragment {
                                 case "Evening":
                                     availabilitySpinner.setSelection(2);
                                     break;
+                                default:
+                                    availabilitySpinner.setSelection(0);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

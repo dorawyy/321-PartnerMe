@@ -26,7 +26,7 @@ public class User {
         return this.Availability;
     }
 
-    public String get_Class() { return this.Class;}
+    public String getUserClass() { return this.Class;}
 
     public String getHobbies() {return this.Hobbies;}
 
