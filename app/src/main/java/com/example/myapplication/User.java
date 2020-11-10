@@ -1,5 +1,4 @@
 package com.example.myapplication;
-import java.io.Serializable;
 
 public class User {
     private String Name;

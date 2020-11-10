@@ -33,9 +33,11 @@ public class fourthFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    /*
     public fourthFragment() {
         // Required empty public constructor
     }
+    */
 
     /**
      * Use this factory method to create a new instance of

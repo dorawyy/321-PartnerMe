@@ -26,9 +26,11 @@ public class secondFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     //private FirebaseAuth mFirebaseAuth;
 
+    /*
     public secondFragment() {
         // Required empty public constructor
     }
+     */
 
     /**
      * Use this factory method to create a new instance of
