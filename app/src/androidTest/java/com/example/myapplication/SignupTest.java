@@ -30,7 +30,7 @@ public class SignupTest {
             = new ActivityTestRule<>(SignUpActivity.class);
 
     @Test
-    public void SignupTest() {
+    public void signUpTest() {
         String name = "Joshua";
         String language = "English, Korean";
         String className = "CPEN 321";
