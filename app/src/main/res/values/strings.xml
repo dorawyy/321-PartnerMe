@@ -18,6 +18,8 @@
     <string name="account">Account</string>
     <string name="textview">TextView</string>
     <string name="third">third</string>
+    <string name="matchurl">http://52.91.172.94:3000/matching/getmatch</string>
+    <string name="accounturl">http://52.91.172.94:3000/auth/create</string>
     <string-array name="availability_array">
         <item>Morning</item>
         <item>Afternoon</item>

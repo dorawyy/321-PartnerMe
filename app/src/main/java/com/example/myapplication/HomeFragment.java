@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
 // ...
 // Instantiate the RequestQueue.
             final RequestQueue queue = Volley.newRequestQueue(this.getContext());
-            String url = "http://52.91.172.94:3000/matching/getmatch";
+            String url = getResources().getString(R.string.matchurl);
             final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                     new Response.Listener<JSONObject>() {
                         @Override
