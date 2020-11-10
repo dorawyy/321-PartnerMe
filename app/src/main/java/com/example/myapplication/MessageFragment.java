@@ -21,55 +21,8 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FourthFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FourthFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    /*
-    public fourthFragment() {
-        // Required empty public constructor
-    }
-    */
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fourthFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FourthFragment newInstance(String param1, String param2) {
-        FourthFragment fragment = new FourthFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        /*
-        if (getArguments() != null) {
-            // TODO: Rename and change types of parameters
-
-            String mParam1 = getArguments().getString(ARG_PARAM1);
-            String mParam2 = getArguments().getString(ARG_PARAM2);
-
-        }
-        */
-    }
+public class MessageFragment extends Fragment {
 
     public JsonObjectRequest currentUserObject(final EditText nameField, final EditText languageField, final EditText classField, final EditText hobbyField, final Spinner availabilitySpinner){
         final JSONObject objectGet = new JSONObject();

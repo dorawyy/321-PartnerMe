@@ -1,0 +1,43 @@
+package com.example.myapplication;
+
+import android.net.Uri;
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.squareup.picasso.Picasso;
+
+public class UserPageFragment extends Fragment {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_second, container, false);
+        if (GoogleSignIn.getLastSignedInAccount(getContext()) != null) {
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
+            String name = acct.getDisplayName();
+            Uri uri = acct.getPhotoUrl();
+
+            TextView tv = rootView.findViewById(R.id.profile_name);
+            ImageView img = rootView.findViewById(R.id.profile_picture);
+            if (name != null)
+                tv.setText(name);
+            if (uri != null)
+                Picasso.get().load(uri).into(img);
+            // Inflate the layout for this fragment
+        }
+
+        return rootView;
+    }
+}
