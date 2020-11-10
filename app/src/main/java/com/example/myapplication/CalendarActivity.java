@@ -23,8 +23,7 @@ public class CalendarActivity extends Activity {
         eventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                String selectedDate = sdf.format(new Date(calendar.getDate()));
+                String selectedDate = String.valueOf(calendar.getDate());
                 System.out.println(selectedDate);
             }
         });
