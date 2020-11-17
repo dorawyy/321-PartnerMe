@@ -61,7 +61,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
                         nameField.requestFocus();
                     }
 
-                    Toast.makeText(UpdateAccountActivity.this, "Sign up not complete, please make sure fields are not empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateAccountActivity.this, "Update not complete, please make sure fields are not empty", Toast.LENGTH_SHORT).show();
                 } else {
                     // send post request with fields
                     try {
@@ -85,7 +85,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
                                             startActivity(intent);
                                         }
                                         else{
-                                            Toast.makeText(UpdateAccountActivity.this, "Sign up not complete, please make sure fields are not empty or your internet connection", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(UpdateAccountActivity.this, "Update not complete, please make sure fields are not empty or your internet connection", Toast.LENGTH_SHORT).show();
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();

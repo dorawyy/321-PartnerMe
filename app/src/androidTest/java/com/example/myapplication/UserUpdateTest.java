@@ -1,5 +1,7 @@
 package com.example.myapplication;
+import android.content.ComponentName;
 
+import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -8,6 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -19,31 +22,42 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
-
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class SignupTest {
+public class UserUpdateTest {
     @Rule
-    public ActivityTestRule<SignUpActivity> activityRule
-            = new ActivityTestRule<>(SignUpActivity.class);
+    public ActivityTestRule<MainActivity> activityRule
+            = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void signUpTest() {
+    public void updateTest() throws InterruptedException {
+        onView(withId(R.id.secondFragment))
+                .perform(click())
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.update_account_button))
+                .perform(click());
+
+        Thread.sleep(1000);
+
+
         String name = "Joshua";
-        String language = "English, Korean";
-        String className = "CPEN 321";
-        String hobby = "Coding, Game, Guitar";
-        String toast = "Sign up not complete, please make sure fields are not empty";
+        String language = "English, French";
+        String className = "CPSC 320";
+        String hobby = "Soccer, Coding";
+        String toast = "Update not complete, please make sure fields are not empty";
 
         // Fail Condition #1
-        // perform sign-up with all (4) fields left blank
+        // perform update with all (4) fields left blank
         onView(withId(R.id.signupButton))
                 .perform(click());
         onView(withText(toast)).inRoot(withDecorView(not(activityRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
 
         // Fail Condition #2
-        // perform sign-up with 3 fields left blank
+        // perform update with 3 fields left blank
         onView(withId(R.id.signup_nameField))
                 .perform(typeText(name), closeSoftKeyboard());
         onView(withId(R.id.signupButton))
@@ -52,7 +66,7 @@ public class SignupTest {
                 .check(matches(isDisplayed()));
 
         // Fail Condition #3
-        // perform sign-up with 2 fields left blank
+        // perform update with 2 fields left blank
         onView(withId(R.id.signup_ClassField))
                 .perform(typeText(className), closeSoftKeyboard());
         onView(withId(R.id.signupButton))
@@ -61,7 +75,7 @@ public class SignupTest {
                 .check(matches(isDisplayed()));
 
         // Fail Condition #4
-        // perform sign-up with 1 field left blank
+        // perform update with 1 field left blank
         onView(withId(R.id.signup_Language))
                 .perform(typeText(language), closeSoftKeyboard());
         onView(withId(R.id.signupButton))
@@ -70,7 +84,7 @@ public class SignupTest {
                 .check(matches(isDisplayed()));
 
         // Success Condition
-        // All blanks are filled, sign-up is complete and now directed to MainActivity
+        // All blanks are filled, update is complete and now directed to MainActivity
         onView(withId(R.id.signup_Hobbies))
                 .perform(typeText(hobby), closeSoftKeyboard());
 
@@ -78,5 +92,6 @@ public class SignupTest {
                 .perform(click())
                 .check(matches(isDisplayed()));
         assertEquals(1,1);
+
     }
 }
