@@ -25,4 +25,6 @@
         <item>Afternoon</item>
         <item>Evening</item>
     </string-array>
+    <string name="chat_name">Chat</string>
+    <string name="input_placeholder">Write a message</string>
 </resources>
