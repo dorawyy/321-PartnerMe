@@ -8,6 +8,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 public class ChatActivity extends AppCompatActivity {
 
     private EditText editText;
@@ -40,6 +43,22 @@ public class ChatActivity extends AppCompatActivity {
         String message = editText.getText().toString();
         if (message.length() > 0) {
             editText.getText().clear();
+            // TODO: send to server
         }
+    }
+
+    public void onMessage() {
+        final User data = null; // TODO: get messages from server
+        String receivedMessage = null;
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        boolean belongsToCurrentUser = data.getEmail().equals(acct.getEmail());
+        final Message message = new Message(receivedMessage, data, belongsToCurrentUser);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                messageAdapter.add(message);
+                messagesView.setSelection(messagesView.getCount() - 1);
+            }
+        });
     }
 }
