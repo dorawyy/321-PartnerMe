@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Timer;
@@ -119,7 +120,7 @@ public class ChatActivity extends AppCompatActivity {
         final Gson g = new Gson();
         MessageResult chatList;
         chatList = g.fromJson(list.toString(), MessageResult.class);
-        final List<Message> messageList = new ArrayList<>(chatList.getChat());
+        final List<Message> messageList = new ArrayList<>(Arrays.asList(chatList.getChat()));
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
