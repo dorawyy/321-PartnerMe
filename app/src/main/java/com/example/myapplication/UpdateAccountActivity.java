@@ -25,7 +25,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.signup_main);
 
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
-        final String url = getResources().getString(R.string.accounturl);
+        final String url = getResources().getString(R.string.update_accounturl);
         final JSONObject object = new JSONObject();
 
         final EditText nameField = findViewById(R.id.signup_nameField);
