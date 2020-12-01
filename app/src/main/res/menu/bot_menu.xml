@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/thirdFragment"
-        android:title="Calendar"
+        android:title="Match"
         android:icon="@drawable/calendar"/>
 
     <item

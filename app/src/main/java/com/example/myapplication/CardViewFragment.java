@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -40,18 +39,8 @@ import java.util.List;
 
 public class CardViewFragment extends Fragment {
 
-    public static CardViewFragment newInstance() {
-        CardViewFragment fragment = new CardViewFragment();
-        return fragment;
-    }
-
     private CardStackAdapter adapter;
     private CardStackLayoutManager manager;
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
