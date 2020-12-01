@@ -136,13 +136,13 @@ public class SwipeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         List<User> userList = new ArrayList<>();
-                        MatchResult[] matchList = new MatchResult[0];
+                        JsonResults.MatchResult[] matchList = new JsonResults.MatchResult[0];
                         try {
-                            matchList = g.fromJson(response.get("match result").toString(), MatchResult[].class);
+                            matchList = g.fromJson(response.get("match result").toString(), JsonResults.MatchResult[].class);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        for (MatchResult user : matchList) {
+                        for (JsonResults.MatchResult user : matchList) {
                             userList.add(user.getUser());
                         }
                         List<User> old = adapter.getItems();

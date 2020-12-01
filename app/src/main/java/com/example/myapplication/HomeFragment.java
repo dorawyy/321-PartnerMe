@@ -57,14 +57,14 @@ public class HomeFragment extends Fragment {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            MatchResult[] matchList = new MatchResult[0];
+                            JsonResults.MatchResult[] matchList = new JsonResults.MatchResult[0];
                             try {
-                                matchList = g.fromJson(response.get("match result").toString(), MatchResult[].class);
+                                matchList = g.fromJson(response.get("match result").toString(), JsonResults.MatchResult[].class);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             String str = "";
-                            for (MatchResult user : matchList) {
+                            for (JsonResults.MatchResult user : matchList) {
                                 str = str.concat("\n\n\nName: " + user.getUser().getName() +
                                         "\nClass:  " + user.getUser().getUserClass() +
                                         "\nLanguage:  " + user.getUser().getLanguage() +

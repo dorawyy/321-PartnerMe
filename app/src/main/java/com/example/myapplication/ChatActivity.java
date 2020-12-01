@@ -2,9 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,8 +14,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -25,7 +21,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,8 +30,8 @@ public class ChatActivity extends AppCompatActivity {
     private EditText editText;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
-    private User currUser;
-    private User otherUser;
+    private String currUser;
+    private String otherUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +44,8 @@ public class ChatActivity extends AppCompatActivity {
         messagesView = (ListView) findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
-        this.currUser = (User) getIntent().getSerializableExtra("currUser");
-        this.otherUser = (User) getIntent().getSerializableExtra("otherUser");
+        this.currUser = getIntent().getStringExtra("currUser");
+        this.otherUser = getIntent().getStringExtra("otherUser");
 
         ImageButton sendButton = findViewById(R.id.sendButton);
         sendButton.setOnClickListener(new View.OnClickListener(){
@@ -67,8 +62,8 @@ public class ChatActivity extends AppCompatActivity {
                 final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 String url = "http://52.91.172.94:3000//messages/getchat";
                 try {
-                    object.put("currUser", currUser.getEmail());
-                    object.put("otherUser", otherUser.getEmail());
+                    object.put("currUser", currUser);
+                    object.put("otherUser", otherUser);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -96,8 +91,8 @@ public class ChatActivity extends AppCompatActivity {
             final RequestQueue queue = Volley.newRequestQueue(this.getApplicationContext());
             String url = "http://52.91.172.94:3000//messages/sendmessage";
             try {
-                object.put("currUser", currUser.getEmail());
-                object.put("otherUser", otherUser.getEmail());
+                object.put("currUser", currUser);
+                object.put("otherUser", otherUser);
                 object.put("message", message);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -118,8 +113,8 @@ public class ChatActivity extends AppCompatActivity {
 
     public void onMessage(final JSONObject list) {
         final Gson g = new Gson();
-        MessageResult chatList;
-        chatList = g.fromJson(list.toString(), MessageResult.class);
+        JsonResults.MessageResult chatList;
+        chatList = g.fromJson(list.toString(), JsonResults.MessageResult.class);
         final List<Message> messageList = new ArrayList<>(Arrays.asList(chatList.getChat()));
         runOnUiThread(new Runnable() {
             @Override
