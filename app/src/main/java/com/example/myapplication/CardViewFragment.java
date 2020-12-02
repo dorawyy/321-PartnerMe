@@ -65,6 +65,11 @@ public class CardViewFragment extends Fragment {
                 Log.d(TAG, "onCardSwiped: n=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right){
                     Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
+                    User user = adapter.getItems().get(manager.getTopPosition());
+                    String otherUser = user.getEmail();
+                    String token = user.getToken();
+
+                    sendMatch(otherUser, token);
                 }
                 if (direction == Direction.Top){
                     Toast.makeText(getContext(), "Direction Top", Toast.LENGTH_SHORT).show();
@@ -124,6 +129,8 @@ public class CardViewFragment extends Fragment {
         cv.setItemAnimator(new DefaultItemAnimator());
     }
 
+
+
     private void page() {
         addList();
     }
@@ -169,5 +176,35 @@ public class CardViewFragment extends Fragment {
         });
 
         queue.add(jsonObjectRequest);
+    }
+
+    private void sendMatch(final String otherUser, final String token) {
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
+        final String currentUser = acct.getEmail();
+
+        final RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
+        final String url = getResources().getString(R.string.pushnotif);
+        final JSONObject object = new JSONObject();
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            object.put("currentUser", currentUser);
+                            object.put("otherUser", otherUser);
+                            object.put("token", token);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
     }
 }
