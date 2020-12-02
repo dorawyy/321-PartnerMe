@@ -22,6 +22,7 @@
     <string name="accounturl">http://52.91.172.94:3000/auth/create</string>
     <string name="update_accounturl">http://52.91.172.94:3000/user/update</string>
     <string name="tokenurl">http://52.91.172.94:3000/user/updatetoken</string>
+    <string name="pushnotif">http://52.91.172.94:3000/matching/swiperight</string>
     <string-array name="availability_array">
         <item>Morning</item>
         <item>Afternoon</item>
