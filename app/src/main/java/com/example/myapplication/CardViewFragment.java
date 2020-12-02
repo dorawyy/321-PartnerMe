@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -53,7 +54,7 @@ public class CardViewFragment extends Fragment {
 
     private void render(View root) {
         final String TAG = "card";
-        final String TAG1 = "cardd";
+        final String TAG1 = "carddd";
         CardStackView cv = root.findViewById(R.id.card_stack_view);
         manager = new CardStackLayoutManager(getContext(), new CardStackListener() {
             @Override
@@ -68,22 +69,24 @@ public class CardViewFragment extends Fragment {
                     Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
 //                    User user = adapter.getItems().get(2);
 //                    Log.d(TAG1, user.getEmail());
-//                    if (user.getToken() == null) {
-//                        Log.d(TAG1, "token is null");
-//                    } else {
-//                        Log.d(TAG1, user.getToken());
-//                    }
 
-                    User user = adapter.getItems().get(manager.getTopPosition());
-                    String otherUser = user.getEmail();
-                    String token = user.getToken();
-                    if (token == null) {
-                        Log.d("MATCH", "token is null!!!!!!!!!!!!!!!");
+                    try {
+                        User user = adapter.getItems().get(manager.getTopPosition() - 1);
+                        Log.d(TAG1, String.valueOf(manager.getTopPosition()));
+
+                        String otherUser = user.getEmail();
+                        Log.d(TAG1, otherUser);
+                        String token = user.getToken();
+                        if (user.getToken() == null) {
+                            Log.d(TAG1, "token is null");
+                        } else {
+                            Log.d(TAG1, user.getToken());
+                            sendMatch(otherUser, token);
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
                     }
-                    Log.d("MATCH", token);
 
-                    Log.d("MATCH", "Swiped Right!!!");
-                    sendMatch(otherUser, token);
                 }
                 if (direction == Direction.Top){
                     Toast.makeText(getContext(), "Direction Top", Toast.LENGTH_SHORT).show();
@@ -96,7 +99,7 @@ public class CardViewFragment extends Fragment {
                 }
 
                 // change the value of adapter.getItemcount() - value to how many cards we want before we restart matches
-                if (manager.getTopPosition() == adapter.getItemCount()){
+                if (manager.getTopPosition() == adapter.getItemCount()) {
                     page();
                 }
 
@@ -205,22 +208,19 @@ public class CardViewFragment extends Fragment {
         final RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
         final String url = getResources().getString(R.string.pushnotif);
         final JSONObject object = new JSONObject();
+
+        try {
+            object.put("currentUser", currentUser);
+            object.put("otherUser", otherUser);
+            object.put("token", token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            object.put("currentUser", currentUser);
-                            object.put("otherUser", otherUser);
-                            object.put("token", token);
-
-                            Log.d(TAG, currentUser);
-                            Log.d(TAG, otherUser);
-                            Log.d(TAG, token);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        Log.d(TAG, "success");
                     }
                 }, new Response.ErrorListener() {
             @Override

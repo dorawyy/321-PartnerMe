@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 object.put("email", acct.getEmail());
                 object.put("token", s);
+                Log.d("TOKEN", s);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
