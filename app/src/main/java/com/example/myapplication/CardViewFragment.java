@@ -53,6 +53,7 @@ public class CardViewFragment extends Fragment {
 
     private void render(View root) {
         final String TAG = "card";
+        final String TAG1 = "cardd";
         CardStackView cv = root.findViewById(R.id.card_stack_view);
         manager = new CardStackLayoutManager(getContext(), new CardStackListener() {
             @Override
@@ -62,13 +63,26 @@ public class CardViewFragment extends Fragment {
 
             @Override
             public void onCardSwiped(Direction direction) {
-                Log.d(TAG, "onCardSwiped: n=" + manager.getTopPosition() + " d=" + direction);
+                Log.d(TAG1, "onCardSwiped: n=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right){
                     Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
+//                    User user = adapter.getItems().get(2);
+//                    Log.d(TAG1, user.getEmail());
+//                    if (user.getToken() == null) {
+//                        Log.d(TAG1, "token is null");
+//                    } else {
+//                        Log.d(TAG1, user.getToken());
+//                    }
+
                     User user = adapter.getItems().get(manager.getTopPosition());
                     String otherUser = user.getEmail();
                     String token = user.getToken();
+                    if (token == null) {
+                        Log.d("MATCH", "token is null!!!!!!!!!!!!!!!");
+                    }
+                    Log.d("MATCH", token);
 
+                    Log.d("MATCH", "Swiped Right!!!");
                     sendMatch(otherUser, token);
                 }
                 if (direction == Direction.Top){
@@ -183,6 +197,11 @@ public class CardViewFragment extends Fragment {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
         final String currentUser = acct.getEmail();
 
+        final String TAG = "MATCH";
+        Log.d(TAG, currentUser);
+        Log.d(TAG, otherUser);
+        Log.d(TAG, token);
+
         final RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
         final String url = getResources().getString(R.string.pushnotif);
         final JSONObject object = new JSONObject();
@@ -194,6 +213,11 @@ public class CardViewFragment extends Fragment {
                             object.put("currentUser", currentUser);
                             object.put("otherUser", otherUser);
                             object.put("token", token);
+
+                            Log.d(TAG, currentUser);
+                            Log.d(TAG, otherUser);
+                            Log.d(TAG, token);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -201,7 +225,8 @@ public class CardViewFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+                System.out.println(error.toString());
+                Log.d("MATCH ERROR", error.toString());
             }
         });
 
