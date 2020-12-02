@@ -60,7 +60,7 @@ public class ChatActivity extends AppCompatActivity {
             public void run() {
                 final JSONObject object = new JSONObject();
                 final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                String url = "http://52.91.172.94:3000//messages/getchat";
+                String url = "http://52.91.172.94:3000/messages/getchat";
                 try {
                     object.put("currentUser", currUser);
                     object.put("otherUser", otherUser);
@@ -89,7 +89,7 @@ public class ChatActivity extends AppCompatActivity {
 
             final JSONObject object = new JSONObject();
             final RequestQueue queue = Volley.newRequestQueue(this.getApplicationContext());
-            String url = "http://52.91.172.94:3000//messages/sendmessage";
+            String url = "http://52.91.172.94:3000/messages/sendmessage";
             try {
                 object.put("currentUser", currUser);
                 object.put("otherUser", otherUser);
@@ -113,9 +113,16 @@ public class ChatActivity extends AppCompatActivity {
 
     public void onMessage(final JSONObject list) {
         final Gson g = new Gson();
-        JsonResults.MessageResult chatList;
-        chatList = g.fromJson(list.toString(), JsonResults.MessageResult.class);
-        final List<Message> messageList = new ArrayList<>(Arrays.asList(chatList.getChat()));
+        JsonResults.MessageResult[] chatList = new JsonResults.MessageResult[0];
+        try {
+            chatList = g.fromJson(list.get("chatlist").toString(), JsonResults.MessageResult[].class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final List<Message> messageList = new ArrayList<>();
+        for (JsonResults.MessageResult message : chatList) {
+            messageList.add(new Message(message.getMessage(), message.getUser(), message.getUser().equals(currUser)));
+        }
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
