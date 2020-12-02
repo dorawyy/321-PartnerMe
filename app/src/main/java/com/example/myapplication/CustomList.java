@@ -54,13 +54,21 @@ public class CustomList extends BaseAdapter {
         LayoutInflater messageInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         String email = this.email.get(i);
 
-        convertView = messageInflater.inflate(R.layout.chat_header, null);
+        if (convertView == null) {
+            convertView = messageInflater.inflate(R.layout.chat_header, null);
+        }
 
         TextView txtTitle = (TextView) convertView.findViewById(R.id.headerTxt);
         TextView imgTitle = (TextView) convertView.findViewById(R.id.headerImg);
 
-        txtTitle.setText(email);
-        imgTitle.setText(email.substring(0, 0));
+        if (email != null) {
+            txtTitle.setText(email);
+            imgTitle.setText(email.substring(0, 0));
+        } else {
+            txtTitle.setText("");
+            imgTitle.setText("");
+            imgTitle.setBackgroundResource(0);
+        }
 
         return convertView;
     }
