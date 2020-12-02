@@ -7,11 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,15 +17,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.api.client.json.Json;
 import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 
 public class MessageFragment extends Fragment {
@@ -45,7 +39,7 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.activity_chat_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_third, container, false);
 
         final Gson g = new Gson();
         final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
@@ -96,7 +90,7 @@ public class MessageFragment extends Fragment {
         for (int i = 0; i < email.size(); i++) {
             emailArray[i] = email.get(i).getName();
         }
-        CustomList adapter = new CustomList(getActivity());
+        HeaderAdapter adapter = new HeaderAdapter(getActivity());
         list.setAdapter(adapter);
         adapter.update(emailArray);
     }

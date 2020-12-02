@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.action.ViewActions.swipeLeft;
 import static androidx.test.espresso.action.ViewActions.swipeRight;
@@ -25,11 +26,14 @@ import static org.junit.Assert.assertEquals;
 @LargeTest
 public class MatchingTest {
     @Rule
-    public ActivityTestRule<SwipeActivity> activityRule
-            = new ActivityTestRule<>(SwipeActivity.class);
+    public ActivityTestRule<MainActivity> activityRule
+            = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void swipeTest() {
+        onView(withId(R.id.firstFragment))
+                .perform(click())
+                .check(matches(isDisplayed()));
 
         onView(withId(R.id.card_stack_view))
                 .perform(swipeUp());

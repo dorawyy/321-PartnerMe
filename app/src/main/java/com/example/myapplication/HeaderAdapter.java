@@ -15,12 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class CustomList extends BaseAdapter {
+public class HeaderAdapter extends BaseAdapter {
 
     List<String> email = new ArrayList<String>();
     Context context;
 
-    public CustomList(Context context) {
+    public HeaderAdapter(Context context) {
         this.context = context;
     }
 

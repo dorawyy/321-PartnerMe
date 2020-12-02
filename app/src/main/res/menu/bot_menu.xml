@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/firstFragment"
-        android:title="Home"
+        android:title="Match"
         android:icon="@drawable/home"/>
 
     <item
@@ -13,11 +13,6 @@
 
     <item
         android:id="@+id/thirdFragment"
-        android:title="Match"
-        android:icon="@drawable/calendar"/>
-
-    <item
-        android:id="@+id/fourthFragment"
         android:title="Message"
         android:icon="@drawable/message"/>
 

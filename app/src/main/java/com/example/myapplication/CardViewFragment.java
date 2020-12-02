@@ -47,7 +47,7 @@ public class CardViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_third, container, false);
+        View root = inflater.inflate(R.layout.fragment_first, container, false);
         render(root);
         return root;
     }
