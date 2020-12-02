@@ -2,10 +2,10 @@ package com.example.myapplication;
 
 public class Message {
     private String text;
-    private User memberData;
+    private String memberData;
     private boolean belongsToCurrentUser;
 
-    public Message(String text, User data, boolean belongsToCurrentUser) {
+    public Message(String text, String data, boolean belongsToCurrentUser) {
         this.text = text;
         this.memberData = data;
         this.belongsToCurrentUser = belongsToCurrentUser;
@@ -15,7 +15,7 @@ public class Message {
         return text;
     }
 
-    public User getMemberData() {
+    public String getMemberData() {
         return memberData;
     }
 

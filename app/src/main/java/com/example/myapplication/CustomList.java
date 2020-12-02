@@ -21,13 +21,15 @@ public class CustomList extends ArrayAdapter<String>{
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView= inflater.inflate(R.layout.activity_chat_list, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
+        View rowView = inflater.inflate(R.layout.chat_header, null, true);
 
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
         TextView Avatar = (TextView) rowView.findViewById(R.id.img);
 
-        txtTitle.setText(email[position]);
-        Avatar.setText(email[position].charAt(0));
+        if (email[position] != null) {
+            txtTitle.setText(email[position]);
+            Avatar.setText(email[position].charAt(0));
+        }
 
         return rowView;
     }

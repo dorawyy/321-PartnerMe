@@ -10,14 +10,16 @@ class JsonResults {
     }
 
     public static class MessageResult {
-        private Message[] chatLog;
+        private String user;
+        private String message;
 
-        public Message[] getChat(){ return this.chatLog; }
+        public String getUser(){ return this.user; }
+        public String getMessage(){ return this.message; }
     }
 
     public static class MessageListResult {
-        private String[] email;
+        private String email;
 
-        public String[] getEmail(){ return this.email; }
+        public String getEmail(){ return this.email; }
     }
 }

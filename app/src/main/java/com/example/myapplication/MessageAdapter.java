@@ -67,10 +67,10 @@ public class MessageAdapter extends BaseAdapter {
             holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
             convertView.setTag(holder);
 
-            holder.name.setText(message.getMemberData().getName());
+            holder.name.setText(message.getMemberData());
             holder.messageBody.setText(message.getText());
             TextView initial = (TextView) holder.avatar;
-            initial.setText(message.getMemberData().getName().charAt(0));
+            initial.setText(message.getMemberData().charAt(0));
         }
 
         return convertView;
