@@ -70,7 +70,7 @@ public class MessageAdapter extends BaseAdapter {
             holder.name.setText(message.getMemberData());
             holder.messageBody.setText(message.getText());
             TextView initial = (TextView) holder.avatar;
-            initial.setText(message.getMemberData().charAt(0));
+            initial.setText(message.getMemberData().substring(0, 0));
         }
 
         return convertView;

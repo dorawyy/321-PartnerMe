@@ -20,16 +20,21 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.api.client.json.Json;
 import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 
 public class MessageFragment extends Fragment {
+
+    private ListView list;
+    private List<JsonResults.MessageListResult> email;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,21 +58,17 @@ public class MessageFragment extends Fragment {
             e.printStackTrace();
         }
 
-        final List<String> email = new ArrayList<>();
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        JsonResults.MessageListResult[] emailList = new JsonResults.MessageListResult[0];
+                        List<JsonResults.MessageListResult> emailList;
                         try {
-                            emailList = g.fromJson(response.get("listofusers").toString(), JsonResults.MessageListResult[].class);
+                            emailList = Arrays.asList(g.fromJson(response.get("listofusers").toString(), JsonResults.MessageListResult[].class));
+                            setView(emailList, acct);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        for (JsonResults.MessageListResult user : emailList) {
-                            email.add(user.getEmail());
-                        }
-                        setView(email, acct);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -75,20 +76,28 @@ public class MessageFragment extends Fragment {
         });
         queue.add(jsonObjectRequest);
 
-        return view;
-    }
-
-    private void setView (final List<String> email, final GoogleSignInAccount acct) {
-        CustomList adapter = new CustomList(getActivity(), email.toArray(new String[0]));
-        ListView list = (ListView) requireView().findViewById(R.id.chat_list);
-        list.setAdapter(adapter);
+        list = (ListView) view.findViewById(R.id.chat_list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getContext(), ChatActivity.class);
                 intent.putExtra("currentUser", acct.getEmail());
-                intent.putExtra("otherUser", email.get(i));
+                intent.putExtra("otherUser", email.get(i).getName());
+                startActivity(intent);
             }
         });
+
+        return view;
+    }
+
+    private void setView (final List<JsonResults.MessageListResult> email, final GoogleSignInAccount acct) {
+        this.email = email;
+        String[] emailArray = new String[email.size()];
+        for (int i = 0; i < email.size(); i++) {
+            emailArray[i] = email.get(i).getName();
+        }
+        CustomList adapter = new CustomList(getActivity());
+        list.setAdapter(adapter);
+        adapter.update(emailArray);
     }
 }

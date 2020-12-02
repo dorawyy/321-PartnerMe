@@ -10,16 +10,16 @@ class JsonResults {
     }
 
     public static class MessageResult {
-        private String user;
+        private String name;
         private String message;
 
-        public String getUser(){ return this.user; }
+        public String getUser(){ return this.name; }
         public String getMessage(){ return this.message; }
     }
 
     public static class MessageListResult {
-        private String email;
+        private String name;
 
-        public String getEmail(){ return this.email; }
+        public String getName(){ return this.name; }
     }
 }

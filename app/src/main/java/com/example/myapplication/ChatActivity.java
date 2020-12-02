@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -101,6 +102,7 @@ public class ChatActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
                         onMessage(response);
                     }
                 }, new Response.ErrorListener() {
@@ -115,7 +117,7 @@ public class ChatActivity extends AppCompatActivity {
         final Gson g = new Gson();
         JsonResults.MessageResult[] chatList = new JsonResults.MessageResult[0];
         try {
-            chatList = g.fromJson(list.get("chatlist").toString(), JsonResults.MessageResult[].class);
+            chatList = g.fromJson(list.get("chatlog").toString(), JsonResults.MessageResult[].class);
         } catch (JSONException e) {
             e.printStackTrace();
         }
