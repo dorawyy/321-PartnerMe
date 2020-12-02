@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import androidx.test.espresso.ViewAssertion;
-import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -23,8 +22,6 @@ import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
-import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 
 
 @RunWith(AndroidJUnit4.class)

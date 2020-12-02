@@ -1,8 +1,24 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -12,14 +28,47 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(s);
         Log.d(TAG, s);
 
-        // sendRegistrationToServer(s);
-
+        sendRegistrationToServer(s);
     }
-    /*
+
     private void sendRegistrationToServer(String s) {
+        final RequestQueue requestQueue = Volley.newRequestQueue(this);
+        final String url = getResources().getString(R.string.tokenurl);
+        final JSONObject object = new JSONObject();
+        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+            try {
+                object.put("email", acct.getEmail());
+                object.put("token", s);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                if((Boolean) response.get("success")){
+                                    Log.d(TAG, "token sent");
+                                }
+                                else{
+                                    Log.d(TAG, "token not sent");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+
+        }
 
     }
-     */
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
