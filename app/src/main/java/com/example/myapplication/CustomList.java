@@ -1,36 +1,68 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class CustomList extends ArrayAdapter<String>{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    private final Activity context;
-    private final String[] email;
 
-    public CustomList(Activity context, String[] email) {
-        super(context, R.layout.activity_chat_list, email);
+public class CustomList extends BaseAdapter {
+
+    List<String> email = new ArrayList<String>();
+    Context context;
+
+    public CustomList(Context context) {
         this.context = context;
-        this.email = email;
+    }
+
+    public void add(String email) {
+        this.email.add(email);
+        notifyDataSetChanged();
+    }
+
+    public void update(String[] email) {
+        this.email.addAll(Arrays.asList(email));
+        notifyDataSetChanged();
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.chat_header, null, true);
-
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
-        TextView Avatar = (TextView) rowView.findViewById(R.id.img);
-
-        if (email[position] != null) {
-            txtTitle.setText(email[position]);
-            Avatar.setText(email[position].charAt(0));
-        }
-
-        return rowView;
+    public int getCount() {
+        return email.size();
     }
+
+    @Override
+    public Object getItem(int i) {
+        return email.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int i, View convertView, ViewGroup viewGroup) {
+        LayoutInflater messageInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        String email = this.email.get(i);
+
+        convertView = messageInflater.inflate(R.layout.chat_header, null);
+
+        TextView txtTitle = (TextView) convertView.findViewById(R.id.headerTxt);
+        TextView imgTitle = (TextView) convertView.findViewById(R.id.headerImg);
+
+        txtTitle.setText(email);
+        imgTitle.setText(email.substring(0, 0));
+
+        return convertView;
+    }
+
 }
