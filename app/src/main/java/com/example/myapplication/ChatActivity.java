@@ -44,7 +44,7 @@ public class ChatActivity extends AppCompatActivity {
         messagesView = (ListView) findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
-        this.currUser = getIntent().getStringExtra("currUser");
+        this.currUser = getIntent().getStringExtra("currentUser");
         this.otherUser = getIntent().getStringExtra("otherUser");
 
         ImageButton sendButton = findViewById(R.id.sendButton);
@@ -62,7 +62,7 @@ public class ChatActivity extends AppCompatActivity {
                 final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 String url = "http://52.91.172.94:3000//messages/getchat";
                 try {
-                    object.put("currUser", currUser);
+                    object.put("currentUser", currUser);
                     object.put("otherUser", otherUser);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -91,7 +91,7 @@ public class ChatActivity extends AppCompatActivity {
             final RequestQueue queue = Volley.newRequestQueue(this.getApplicationContext());
             String url = "http://52.91.172.94:3000//messages/sendmessage";
             try {
-                object.put("currUser", currUser);
+                object.put("currentUser", currUser);
                 object.put("otherUser", otherUser);
                 object.put("message", message);
             } catch (JSONException e) {

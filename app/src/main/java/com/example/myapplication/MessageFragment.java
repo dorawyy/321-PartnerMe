@@ -45,7 +45,7 @@ public class MessageFragment extends Fragment {
         final RequestQueue queue = Volley.newRequestQueue(getContext());
         String url = "http://52.91.172.94:3000//messages/messagelist";
         try {
-            object.put("currUser", acct.getEmail());
+            object.put("currentUser", acct.getEmail());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,7 +70,7 @@ public class MessageFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getContext(), ChatActivity.class);
-                intent.putExtra("currUser", acct.getEmail());
+                intent.putExtra("currentUser", acct.getEmail());
                 intent.putExtra("otherUser", email[i]);
             }
         });
