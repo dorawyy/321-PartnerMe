@@ -30,7 +30,7 @@ public class MatchingTest {
             = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void swipeTest() {
+    public void swipeTest() throws InterruptedException {
         onView(withId(R.id.firstFragment))
                 .perform(click())
                 .check(matches(isDisplayed()));
@@ -40,21 +40,22 @@ public class MatchingTest {
         onView(withText("Direction Top")).inRoot(withDecorView(not(activityRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
 
+        Thread.sleep(2000);
         onView(withId(R.id.card_stack_view))
                 .perform(swipeDown());
         onView(withText("Direction Bottom")).inRoot(withDecorView(not(activityRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
 
+        Thread.sleep(2000);
         onView(withId(R.id.card_stack_view))
                 .perform(swipeLeft());
         onView(withText("Direction Left")).inRoot(withDecorView(not(activityRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
 
+        Thread.sleep(2000);
         onView(withId(R.id.card_stack_view))
                 .perform(swipeRight());
         onView(withText("Direction Right")).inRoot(withDecorView(not(activityRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
-
-        assertEquals(1,1);
     }
 }

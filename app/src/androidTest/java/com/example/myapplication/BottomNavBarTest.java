@@ -33,11 +33,12 @@ public class BottomNavBarTest {
         onView(withId(R.id.secondFragment))
                 .perform(click())
                 .check(matches(isDisplayed()));
-
         onView(withId(R.id.firstFragment))
                 .perform(click())
                 .check(matches(isDisplayed()));
-        assertEquals(1,1);
+        onView(withId(R.id.thirdFragment))
+                .perform(click())
+                .check(matches(isDisplayed()));
     }
 
 }
