@@ -8,6 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeDown;
@@ -19,6 +20,7 @@ import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 
@@ -30,9 +32,18 @@ public class ChatTest {
             = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void chatTest() {
+    public void chatTest() throws InterruptedException {
         onView(withId(R.id.thirdFragment))
                 .perform(click())
+                .check(matches(isDisplayed()));
+
+        Thread.sleep(2000);
+
+        onData(anything()).inAdapterView(withId(R.id.chat_list)).atPosition(0).perform(click());
+
+        Thread.sleep(2000);
+
+        onView(withId(R.id.messages_view))
                 .check(matches(isDisplayed()));
 
         assertEquals(1,1);
