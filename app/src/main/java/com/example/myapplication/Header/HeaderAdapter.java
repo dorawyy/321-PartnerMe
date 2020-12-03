@@ -65,7 +65,7 @@ public class HeaderAdapter extends BaseAdapter {
 
         if (email != null) {
             txtTitle.setText(email);
-            imgTitle.setText(email.substring(0, 0));
+            imgTitle.setText(email.substring(0, 1).toUpperCase());
         } else {
             txtTitle.setText("");
             imgTitle.setText("");
