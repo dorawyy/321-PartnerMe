@@ -1,4 +1,4 @@
-package com.example.myapplication.Message;
+package com.example.myapplication.message;
 
 import android.app.Activity;
 import android.content.Context;

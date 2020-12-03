@@ -1,4 +1,4 @@
-package com.example.myapplication.CardStack;
+package com.example.myapplication.cardstack;
 
 import java.util.List;
 

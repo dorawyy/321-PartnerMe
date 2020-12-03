@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,8 +14,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Message.Message;
-import com.example.myapplication.Message.MessageAdapter;
+import com.example.myapplication.message.Message;
+import com.example.myapplication.message.MessageAdapter;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
