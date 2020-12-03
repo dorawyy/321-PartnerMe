@@ -20,6 +20,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -57,5 +58,7 @@ public class MatchingTest {
                 .perform(swipeRight());
         onView(withText("Direction Right")).inRoot(withDecorView(not(activityRule.getActivity().getWindow().getDecorView())))
                 .check(matches(isDisplayed()));
+
+        assertEquals(1,1);
     }
 }

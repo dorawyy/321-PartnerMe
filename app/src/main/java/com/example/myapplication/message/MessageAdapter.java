@@ -51,21 +51,22 @@ public class MessageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
+        View view = convertView;
         MessageViewHolder holder = new MessageViewHolder();
         LayoutInflater messageInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         Message message = messages.get(i);
 
         if (message.isBelongsToCurrentUser()) {
-            convertView = messageInflater.inflate(R.layout.my_message, null);
-            holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
-            convertView.setTag(holder);
+            view = messageInflater.inflate(R.layout.my_message, null);
+            holder.messageBody = (TextView) view.findViewById(R.id.message_body);
+            view.setTag(holder);
             holder.messageBody.setText(message.getText());
         } else {
-            convertView = messageInflater.inflate(R.layout.their_message, null);
-            holder.avatar = (View) convertView.findViewById(R.id.avatar);
-            holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
-            convertView.setTag(holder);
+            view = messageInflater.inflate(R.layout.their_message, null);
+            holder.avatar = (View) view.findViewById(R.id.avatar);
+            holder.name = (TextView) view.findViewById(R.id.name);
+            holder.messageBody = (TextView) view.findViewById(R.id.message_body);
+            view.setTag(holder);
 
             holder.name.setText(message.getMemberData());
             holder.messageBody.setText(message.getText());
@@ -73,7 +74,7 @@ public class MessageAdapter extends BaseAdapter {
             initial.setText(message.getMemberData().substring(0, 1).toUpperCase());
         }
 
-        return convertView;
+        return view;
     }
 
 }

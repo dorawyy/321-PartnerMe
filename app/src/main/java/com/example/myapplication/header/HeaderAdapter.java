@@ -51,15 +51,16 @@ public class HeaderAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
+        View view = convertView;
         LayoutInflater messageInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         String email = this.email.get(i);
 
-        if (convertView == null) {
-            convertView = messageInflater.inflate(R.layout.chat_header, null);
+        if (view == null) {
+            view = messageInflater.inflate(R.layout.chat_header, null);
         }
 
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.headerTxt);
-        TextView imgTitle = (TextView) convertView.findViewById(R.id.headerImg);
+        TextView txtTitle = (TextView) view.findViewById(R.id.headerTxt);
+        TextView imgTitle = (TextView) view.findViewById(R.id.headerImg);
 
         if (email != null) {
             txtTitle.setText(email);
@@ -70,7 +71,7 @@ public class HeaderAdapter extends BaseAdapter {
             imgTitle.setBackgroundResource(0);
         }
 
-        return convertView;
+        return view;
     }
 
 }

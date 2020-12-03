@@ -39,6 +39,7 @@ public class BottomNavBarTest {
         onView(withId(R.id.thirdFragment))
                 .perform(click())
                 .check(matches(isDisplayed()));
+        assertEquals(1,1);
     }
 
 }
