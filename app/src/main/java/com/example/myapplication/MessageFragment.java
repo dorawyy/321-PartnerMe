@@ -60,14 +60,16 @@ public class MessageFragment extends Fragment {
                         List<JsonResults.MessageListResult> emailList;
                         try {
                             emailList = Arrays.asList(g.fromJson(response.get("listofusers").toString(), JsonResults.MessageListResult[].class));
-                            setView(emailList, acct);
+                            setView(emailList);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) { }
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
         });
         queue.add(jsonObjectRequest);
 
@@ -85,7 +87,7 @@ public class MessageFragment extends Fragment {
         return view;
     }
 
-    private void setView (final List<JsonResults.MessageListResult> email, final GoogleSignInAccount acct) {
+    private void setView (final List<JsonResults.MessageListResult> email) {
         this.email = email;
         String[] emailArray = new String[email.size()];
         for (int i = 0; i < email.size(); i++) {

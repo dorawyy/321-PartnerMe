@@ -52,7 +52,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
             languages = itemView.findViewById(R.id.item_language);
         }
 
-        void setData(User data) {
+        private void setData(User data) {
             name.setText(data.getName());
             classes.setText(data.getUserClass());
             hobbies.setText(data.getHobbies());

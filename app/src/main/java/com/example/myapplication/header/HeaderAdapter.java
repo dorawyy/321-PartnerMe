@@ -17,8 +17,8 @@ import java.util.List;
 
 public class HeaderAdapter extends BaseAdapter {
 
-    List<String> email = new ArrayList<String>();
-    Context context;
+    private List<String> email = new ArrayList<String>();
+    private Context context;
 
     public HeaderAdapter(Context context) {
         this.context = context;

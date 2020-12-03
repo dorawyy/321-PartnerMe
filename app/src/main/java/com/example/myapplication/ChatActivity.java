@@ -76,7 +76,9 @@ public class ChatActivity extends AppCompatActivity {
                             }
                         }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) { }
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                    }
                 });
                 queue.add(jsonObjectRequest);
             }
