@@ -21,7 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+public class NotificationService extends FirebaseMessagingService {
     private final String TAG = "NEW_TOKEN";
     @Override
     public void onNewToken(String s) {

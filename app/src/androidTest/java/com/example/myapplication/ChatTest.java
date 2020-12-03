@@ -30,13 +30,10 @@ public class ChatTest {
             = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void swipeTest() {
+    public void chatTest() {
         onView(withId(R.id.thirdFragment))
                 .perform(click())
                 .check(matches(isDisplayed()));
-
-        onView(withId(R.id.chat_list))
-                .perform(click());
 
         assertEquals(1,1);
     }

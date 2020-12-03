@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Message;
 
 public class Message {
     private String text;

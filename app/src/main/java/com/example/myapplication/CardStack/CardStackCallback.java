@@ -1,8 +1,10 @@
-package com.example.myapplication;
+package com.example.myapplication.CardStack;
 
 import java.util.List;
 
 import androidx.recyclerview.widget.DiffUtil;
+
+import com.example.myapplication.User;
 
 public class CardStackCallback extends DiffUtil.Callback {
 
