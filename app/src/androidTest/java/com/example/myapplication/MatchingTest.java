@@ -35,6 +35,7 @@ public class MatchingTest {
                 .perform(click())
                 .check(matches(isDisplayed()));
 
+        Thread.sleep(2000);
         onView(withId(R.id.card_stack_view))
                 .perform(swipeUp());
         onView(withText("Direction Top")).inRoot(withDecorView(not(activityRule.getActivity().getWindow().getDecorView())))
