@@ -14,4 +14,5 @@ before_install:
 install:
 - npm install
 script:
-- npm test
+# - npm test
+- npm test unit/authtest.spec.js unit/matchtest.spec.js unit/messagetest.spec.js unit/userstest.spec.js --coverage
