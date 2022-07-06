@@ -92,9 +92,6 @@
 		"no-mixed-spaces-and-tabs": "error",
 		"no-global-assign": "off",
 
-
-		"no-only-tests/no-only-tests": "error",
-
 		"node/no-exports-assign": "error",
 		"node/no-extraneous-import": "error",
 		"node/no-extraneous-require": "error",
