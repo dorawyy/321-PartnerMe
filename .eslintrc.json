@@ -24,48 +24,12 @@
 	"parserOptions": {
 		"requireConfigFile": false
 	},
-	"overrides": [{
-		"files": [
-			"**/*.ts",
-			"**/*.tsx"
-		],
-		"extends": [
-			"standard",
-			"plugin:security/recommended",
-			"plugin:@typescript-eslint/eslint-recommended",
-			"plugin:@typescript-eslint/recommended"
-		],
-		"parser": "@typescript-eslint/parser",
-		"parserOptions": {
-			"sourceType": "module",
-      		"project": "./tsconfig.json"
-		}
-	}],
 	"settings": {
-		"import/parsers": {
-			"@typescript-eslint/parser": [
-				".ts",
-				".tsx"
-			]
-		},
-		"import/resolver": {
-			"typescript": {
-				"alwaysTryTypes": true
-			}
-		},
 		"jest": {
 			"version": 26
 		}
 	},
 	"rules": {
-		"@typescript-eslint/strict-boolean-expressions": [
-			2,
-			{
-				"allowString": false,
-				"allowNumber": false
-			}
-		],
-
 		"constructor-super": "error",
 		"for-direction": "error",
 		"getter-return": "error",
