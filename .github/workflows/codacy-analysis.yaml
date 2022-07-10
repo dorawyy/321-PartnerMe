@@ -15,84 +15,13 @@ jobs:
         with:
           output: eslint.sarif
           format: sarif
-          # Adjust severity of non-security issues
           gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will handover control about PR rejection to the GitHub side
           max-allowed-issues: 2147483647
+          run-docker-tools: false
           tool: eslint
           
-          
-
       # Upload the SARIF file generated in the previous step
       - name: Upload SARIF eslint results file
         uses: github/codeql-action/upload-sarif@main
         with:
           sarif_file: eslint.sarif
-
-
-      # run Checkstyle
-      - name: Run Codacy Analysis CLI - checkstyle 
-        uses: codacy/codacy-analysis-cli-action@master        
-        with:
-          output: checkstyle.sarif
-          format: sarif
-          # Adjust severity of non-security issues
-          gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will handover control about PR rejection to the GitHub side
-          max-allowed-issues: 2147483647
-          tool: checkstyle
-          
-          
-
-      # Upload the SARIF file generated in the previous step
-      - name: Upload SARIF checkstyle results file
-        uses: github/codeql-action/upload-sarif@main
-        with:
-          sarif_file: checkstyle.sarif
-       
-       
-       
-       
-      - name: Run Codacy Analysis CLI - pmd 
-        uses: codacy/codacy-analysis-cli-action@master        
-        with:
-          output: pmd.sarif
-          format: sarif
-          # Adjust severity of non-security issues
-          gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will handover control about PR rejection to the GitHub side
-          max-allowed-issues: 2147483647
-          tool: eslint
-          
-          
-
-      # Upload the SARIF file generated in the previous step
-      - name: Upload SARIF eslint results file
-        uses: github/codeql-action/upload-sarif@main
-        with:
-          sarif_file: pmd.sarif
-
-
-
-      - name: Run Codacy Analysis CLI - TSLint 
-        uses: codacy/codacy-analysis-cli-action@master        
-        with:
-          output: tslint.sarif
-          format: sarif
-          # Adjust severity of non-security issues
-          gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will handover control about PR rejection to the GitHub side
-          max-allowed-issues: 2147483647
-          tool: tslint
-          
-          
-
-      # Upload the SARIF file generated in the previous step
-      - name: Upload SARIF eslint results file
-        uses: github/codeql-action/upload-sarif@main
-        with:
-          sarif_file: tslint.sarif
