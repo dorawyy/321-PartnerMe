@@ -13,7 +13,7 @@ jobs:
       - name: Run Codacy Analysis CLI - Eslint 
         uses: codacy/codacy-analysis-cli-action@master        
         with:
-          output: eslint.sarif
+          output: results.sarif
           format: sarif
           gh-code-scanning-compat: true
           max-allowed-issues: 2147483647
@@ -24,4 +24,4 @@ jobs:
       - name: Upload SARIF eslint results file
         uses: github/codeql-action/upload-sarif@main
         with:
-          sarif_file: eslint.sarif
+          sarif_file: results.sarif
