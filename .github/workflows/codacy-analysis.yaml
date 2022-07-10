@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@main
 
-      - name: Run Codacy Analysis CLI - Eslint 
+      - name: Run Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@master        
         with:
           output: results.sarif
